@@ -29,8 +29,7 @@
 }
 
 .main {
-	width: 75%;
-	float: right;
+	width: 100%;
 }
 
 .space {
@@ -79,11 +78,21 @@
 }
 
 #gallery {
+	width: 75%; margin-left: 10%; margin-right: 10%;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	grid-gap: 20px;
 	justify-items: center;
 	align-items: center;
+}
+
+.off {
+	list-style-type: none;
+	padding: 0px;
+	margin-right: 0px;
+	width: 100px; height: 70%;
+	overflow: auto;
+	position: fixed;
 }
 
 /* 마커 커스텀 오버레이 CSS */
@@ -348,30 +357,45 @@ function clickRest(restId) {
 
 
 
-<!-- 갤러리형 리스트 -->
-<div class="listDiv" id="gallery">
+<div class="main">
+	<!-- 갤러리형 리스트 -->
+	<div class="listDiv" id="gallery">
+		
+		<c:forEach var="gall" items="${restList}">
+			<div class="galleryDiv" onclick="clickRest('${gall.restId}');">
+				<c:if test="${gall.restFile != null}">
+					<c:set var="gallFile" value="${fn:split(gall.restFile, '/')}"/>
+					<img src="/business/showImg?img=${gallFile[0]}" width="200px" height="200px"> 
+				</c:if>
+				<br>
+				${gall.restName}
+			</div>
+		</c:forEach>
+		
+	</div>
+	<!-- 갤러리형 리스트 -->
 	
-	<c:forEach var="gall" items="${restList}">
-		<div class="galleryDiv" onclick="clickRest('${gall.restId}');">
-			<c:if test="${gall.restFile != null}">
-				<c:set var="gallFile" value="${fn:split(gall.restFile, '/')}"/>
-				<img src="/business/showImg?img=${gallFile[0]}" width="200px" height="200px"> 
+	
+	
+	<!-- 지도형 리스트 -->
+	<div class="listDiv" id="map">
+		<div id="map" style="width:100%; height:500px;"></div>
+	</div>
+	<!-- 지도형 리스트 -->
+	
+	
+	
+	<!-- 오늘 휴무인 가게 리스트 -->
+	<ul class="sideR" id="off">
+		<li><b>TODAY CLOSE</b></li>
+		<c:forEach var="list" items="${restList}">
+			<c:if test="${list.restOnoff == 0}">
+				<li>${list.restName}</li>
 			</c:if>
-			<br>
-			${gall.restName}
-		</div>
-	</c:forEach>
-	
+		</c:forEach>
+	</ul>
+	<!-- 오늘 휴무인 가게 리스트 -->
 </div>
-<!-- 갤러리형 리스트 -->
-
-
-
-<!-- 지도형 리스트 -->
-<div class="listDiv" id="map">
-	<div id="map" style="width:100%; height:500px;"></div>
-</div>
-<!-- 지도형 리스트 -->
 
 
 
@@ -444,7 +468,7 @@ for (let i = 0; i < listData.length; i++) {
 			let customClose = document.createElement("div");									// 오버레이 컨텐츠 닫기
 			customClose.className = "close";
 			customClose.setAttribute("title", "닫기");
-			customClose.appendChild(document.createTextNode("✖️"));
+			customClose.appendChild(document.createTextNode("X"));
 			customClose.onclick = function() { overlay.setMap(null); };
 			customTitle.appendChild(customClose);
 			

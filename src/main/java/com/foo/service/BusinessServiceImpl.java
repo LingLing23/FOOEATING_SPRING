@@ -123,8 +123,8 @@ public class BusinessServiceImpl implements BusinessService {
 	// 1-3. 휴대폰 번호 인증
 	@Override
 	public String sendSMS(String buTel) throws Exception {
-		String apiKey = "NCSJ0F6Y6HYQUGGK";
-		String apiSecretKey = "XHDVOHUQEFGXC2AY86PKGUQ1SWMJGM7Y";
+		String apiKey = "";
+		String apiSecretKey = "";
 		this.messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecretKey, "https://api.coolsms.co.kr");
 		
 		String[] originTel = buTel.split("-");

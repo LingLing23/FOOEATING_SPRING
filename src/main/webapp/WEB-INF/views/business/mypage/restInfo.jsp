@@ -82,7 +82,7 @@ td {
 	left: 0;
 	width: 0;
 	height: 2px;
-	background-color: #1ede9e;
+	background-color: #ffcc66;
 	transition: width 300ms ease-out;
 }
 

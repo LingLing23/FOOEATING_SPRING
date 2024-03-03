@@ -136,7 +136,7 @@ $(document).ready(function() {
 		<div class="info">
 			<div>🏷️</div>
 			<div>${restInfo.restCategory}</div>
-			<div>🗺️</div>
+			<div>📍</div>
 			<div>
 				<c:forEach var="addr" items="${fn:split(restInfo.restAddr, '/')}">
 					${addr} 
@@ -184,7 +184,7 @@ $(document).ready(function() {
 				${restInfo.restDescription}
 			</div>
 			<div class="tab_content" id="review-content">
-				리뷰들
+				작성된 리뷰가 없습니다.
 			</div>
 			<div class="tab_content" id="notice-content">
 				${!restInfo.restNotice ? "공지사항이 없습니다." : restInfo.restNotice}
